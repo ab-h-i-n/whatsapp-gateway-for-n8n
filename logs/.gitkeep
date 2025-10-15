@@ -1,0 +1,3 @@
+# Log files directory
+# This directory contains application logs when running locally
+# In production Docker environment, this is mounted as a volume
