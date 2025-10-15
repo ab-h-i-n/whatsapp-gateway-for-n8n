@@ -3,6 +3,7 @@ const { catchAsync } = require('../utils/errorHandler');
 const whatsappService = require('../services/whatsappService');
 const logger = require('../utils/logger');
 const { AppError } = require('../utils/errorHandler');
+const config = require('../config/config');
 const router = express.Router();
 
 /**
