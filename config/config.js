@@ -28,7 +28,7 @@ const config = {
       "--disable-accelerated-2d-canvas",
       "--no-first-run",
       "--no-zygote",
-      ...(process.platform !== 'win32' ? ["--single-process"] : []), // Only add if not Windows
+      "--single-process", // <- this one doesn't works in Windows
       "--disable-gpu",
     ],
     puppeteerOptions: {
