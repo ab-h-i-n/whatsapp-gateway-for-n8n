@@ -18,8 +18,7 @@ router.get(
 
     if (
       !status ||
-      status.status === "disconnected" ||
-      status.status === "error"
+      status.status !== "CONNECTED"
     ) {
       res.status(503).json({
         success: false,
