@@ -41,10 +41,13 @@ class WhatsAppService {
         puppeteer: {
           headless: config.whatsapp.puppeteerOptions.headless,
           args: config.whatsapp.sessionArgs,
-          executablePath: config.whatsapp.puppeteerOptions.executablePath,
-          // Adding more puppeteer options for stability
+          // Let puppeteer choose the default browser
           defaultViewport: null,
           timeout: 0, // Disable timeout
+          ignoreHTTPSErrors: true,
+          handleSIGINT: false,
+          handleSIGTERM: false,
+          handleSIGHUP: false,
         },
         authStrategy: new RemoteAuth({
           store: store,

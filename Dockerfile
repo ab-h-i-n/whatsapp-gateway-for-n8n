@@ -18,11 +18,7 @@ RUN apt-get update && apt-get install -yq \
     curl \
     # Clean up
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-# Configure Puppeteer
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+    && rm -rf /var/lib/apt/lists/* 
 
 # Stage 2: Build and dependencies
 FROM base AS build

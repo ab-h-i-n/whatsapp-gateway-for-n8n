@@ -29,11 +29,10 @@ const config = {
       "--no-first-run",
       "--no-zygote",
       "--single-process", // <- this one doesn't works in Windows
-      "--disable-gpu",
+      "--disable-gpu"
     ],
     puppeteerOptions: {
       headless: true, // Use false for development to see the browser
-      // executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
     },
     backupSyncIntervalMs: 300000, // 5 minutes
     clientLifetime: process.env.CLIENT_LIFETIME || 5 * 60 * 1000, // Default 5 minutes

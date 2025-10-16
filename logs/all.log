@@ -1,0 +1,122 @@
+2025-10-17 06:56:56 [32minfo[39m: [32mServer is running on port 3000 in development mode[39m
+2025-10-17 06:56:57 [32minfo[39m: [32mMongoDB connection successful[39m
+2025-10-17 06:56:57 [31merror[39m: [31mFailed to initialize WhatsApp client: Failed to launch the browser process![39m
+[31mchrome_crashpad_handler: --database is required[39m
+[31mTry 'chrome_crashpad_handler --help' for more information.[39m
+[31m[18:18:1017/065657.427044:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:120] recvmsg: Connection reset by peer (104)[39m
+
+
+[31mTROUBLESHOOTING: https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md[39m
+[31m[39m
+2025-10-17 06:56:57 [31merror[39m: [31mWhatsApp client initialization error: WhatsApp client initialization failed: Failed to launch the browser process![39m
+[31mchrome_crashpad_handler: --database is required[39m
+[31mTry 'chrome_crashpad_handler --help' for more information.[39m
+[31m[18:18:1017/065657.427044:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:120] recvmsg: Connection reset by peer (104)[39m
+
+
+[31mTROUBLESHOOTING: https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md[39m
+[31m[39m
+2025-10-17 06:56:59 [32minfo[39m: [32mGET /health[39m
+2025-10-17 06:57:31 [32minfo[39m: [32mGET /health[39m
+2025-10-17 06:57:42 [32minfo[39m: [32mGET /health[39m
+2025-10-17 06:57:42 [32minfo[39m: [32mGET /favicon.ico[39m
+2025-10-17 06:57:42 [31merror[39m: [31merror 404: Cannot find /favicon.ico on this server![39m
+2025-10-17 06:57:42 [31merror[39m: [31mError: Cannot find /favicon.ico on this server![39m
+[31m    at /app/server.js:44:15[39m
+[31m    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)[39m
+[31m    at next (/app/node_modules/express/lib/router/route.js:149:13)[39m
+[31m    at next (/app/node_modules/express/lib/router/route.js:145:7)[39m
+[31m    at next (/app/node_modules/express/lib/router/route.js:145:7)[39m
+[31m    at next (/app/node_modules/express/lib/router/route.js:145:7)[39m
+[31m    at next (/app/node_modules/express/lib/router/route.js:145:7)[39m
+[31m    at next (/app/node_modules/express/lib/router/route.js:145:7)[39m
+[31m    at next (/app/node_modules/express/lib/router/route.js:145:7)[39m
+[31m    at Route.dispatch (/app/node_modules/express/lib/router/route.js:119:3)[39m
+[31m    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)[39m
+[31m    at /app/node_modules/express/lib/router/index.js:284:15[39m
+[31m    at param (/app/node_modules/express/lib/router/index.js:365:14)[39m
+[31m    at param (/app/node_modules/express/lib/router/index.js:376:14)[39m
+[31m    at Function.process_params (/app/node_modules/express/lib/router/index.js:421:3)[39m
+[31m    at next (/app/node_modules/express/lib/router/index.js:280:10)[39m
+2025-10-17 06:58:01 [32minfo[39m: [32mGET /health[39m
+2025-10-17 06:58:33 [32minfo[39m: [32mGET /health[39m
+2025-10-17 06:59:04 [32minfo[39m: [32mGET /health[39m
+2025-10-17 06:59:35 [32minfo[39m: [32mGET /health[39m
+2025-10-17 07:00:05 [32minfo[39m: [32mGET /health[39m
+2025-10-17 07:00:07 [32minfo[39m: [32mSIGTERM signal received: closing HTTP server[39m
+2025-10-17 07:00:26 [32minfo[39m: [32mServer is running on port 3000 in development mode[39m
+2025-10-17 07:00:26 [32minfo[39m: [32mMongoDB connection successful[39m
+2025-10-17 07:00:27 [31merror[39m: [31mFailed to initialize WhatsApp client: Failed to launch the browser process![39m
+[31mchrome_crashpad_handler: --database is required[39m
+[31mTry 'chrome_crashpad_handler --help' for more information.[39m
+[31m[18:18:1017/070027.302314:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:120] recvmsg: Connection reset by peer (104)[39m
+
+
+[31mTROUBLESHOOTING: https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md[39m
+[31m[39m
+2025-10-17 07:00:27 [31merror[39m: [31mWhatsApp client initialization error: WhatsApp client initialization failed: Failed to launch the browser process![39m
+[31mchrome_crashpad_handler: --database is required[39m
+[31mTry 'chrome_crashpad_handler --help' for more information.[39m
+[31m[18:18:1017/070027.302314:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:120] recvmsg: Connection reset by peer (104)[39m
+
+
+[31mTROUBLESHOOTING: https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md[39m
+[31m[39m
+2025-10-17 07:00:29 [32minfo[39m: [32mGET /health[39m
+2025-10-17 07:00:54 [32minfo[39m: [32mSIGTERM signal received: closing HTTP server[39m
+2025-10-17 07:01:02 [32minfo[39m: [32mServer is running on port 3000 in development mode[39m
+2025-10-17 07:01:02 [32minfo[39m: [32mMongoDB connection successful[39m
+2025-10-17 07:01:02 [31merror[39m: [31mFailed to initialize WhatsApp client: Failed to launch the browser process![39m
+[31mchrome_crashpad_handler: --database is required[39m
+[31mTry 'chrome_crashpad_handler --help' for more information.[39m
+[31m[18:18:1017/070102.619478:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:120] recvmsg: Connection reset by peer (104)[39m
+
+
+[31mTROUBLESHOOTING: https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md[39m
+[31m[39m
+2025-10-17 07:01:02 [31merror[39m: [31mWhatsApp client initialization error: WhatsApp client initialization failed: Failed to launch the browser process![39m
+[31mchrome_crashpad_handler: --database is required[39m
+[31mTry 'chrome_crashpad_handler --help' for more information.[39m
+[31m[18:18:1017/070102.619478:ERROR:third_party/crashpad/crashpad/util/linux/socket.cc:120] recvmsg: Connection reset by peer (104)[39m
+
+
+[31mTROUBLESHOOTING: https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md[39m
+[31m[39m
+2025-10-17 07:01:06 [32minfo[39m: [32mGET /health[39m
+2025-10-17 07:01:39 [32minfo[39m: [32mGET /health[39m
+2025-10-17 07:02:09 [32minfo[39m: [32mGET /health[39m
+2025-10-17 07:02:41 [32minfo[39m: [32mGET /health[39m
+2025-10-17 07:03:12 [32minfo[39m: [32mGET /health[39m
+2025-10-17 07:03:12 [32minfo[39m: [32mSIGTERM signal received: closing HTTP server[39m
+2025-10-17 07:09:30 [32minfo[39m: [32mServer is running on port 3000 in development mode[39m
+2025-10-17 07:09:31 [32minfo[39m: [32mMongoDB connection successful[39m
+2025-10-17 07:09:34 [32minfo[39m: [32mGET /health[39m
+2025-10-17 07:09:38 [32minfo[39m: [32mWhatsApp QR code received[39m
+2025-10-17 07:09:38 [32minfo[39m: [32mWhatsApp client initialization started[39m
+2025-10-17 07:09:47 [32minfo[39m: [32mGET /[39m
+2025-10-17 07:10:06 [32minfo[39m: [32mGET /[39m
+2025-10-17 07:10:06 [32minfo[39m: [32mGET /[39m
+2025-10-17 07:10:07 [32minfo[39m: [32mGET /health[39m
+2025-10-17 07:10:07 [32minfo[39m: [32mGET /[39m
+2025-10-17 07:10:08 [32minfo[39m: [32mGET /[39m
+2025-10-17 07:10:09 [32minfo[39m: [32mGET /[39m
+2025-10-17 07:10:09 [32minfo[39m: [32mGET /[39m
+2025-10-17 07:10:10 [32minfo[39m: [32mGET /[39m
+2025-10-17 07:10:11 [32minfo[39m: [32mGET /[39m
+2025-10-17 07:10:11 [32minfo[39m: [32mGET /[39m
+2025-10-17 07:10:12 [32minfo[39m: [32mWhatsApp loading screen...[39m
+2025-10-17 07:10:12 [32minfo[39m: [32mWhatsApp loading screen...[39m
+2025-10-17 07:10:12 [32minfo[39m: [32mGET /[39m
+2025-10-17 07:10:13 [32minfo[39m: [32mGET /[39m
+2025-10-17 07:10:16 [32minfo[39m: [32mWhatsApp client is ready![39m
+2025-10-17 07:10:16 [32minfo[39m: [32mWhatsApp client initialization initiated[39m
+2025-10-17 07:10:16 [32minfo[39m: [32mWhatsApp Web version: 2.3000.1028564892[39m
+2025-10-17 07:10:16 [32minfo[39m: [32mMessage queued: ID 1760685016740yqviqd9 to 916282826684@c.us[39m
+2025-10-17 07:10:16 [34mdebug[39m: [34mProcessing 1 messages from queue[39m
+2025-10-17 07:10:16 [34mdebug[39m: [34mProcessing message 1760685016740yqviqd9 (attempt 1, waited 0ms)[39m
+2025-10-17 07:10:16 [34mdebug[39m: [34mSending message to 916282826684@c.us[39m
+2025-10-17 07:10:16 [34mdebug[39m: [34mMessage sent successfully[39m
+2025-10-17 07:10:16 [34mdebug[39m: [34mMessage 1760685016740yqviqd9 processed successfully[39m
+2025-10-17 07:10:37 [32minfo[39m: [32mGET /health[39m
+2025-10-17 07:10:55 [32minfo[39m: [32mGET /[39m
+2025-10-17 07:11:08 [32minfo[39m: [32mGET /health[39m
