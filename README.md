@@ -5,18 +5,20 @@ A production-ready WhatsApp Web gateway service built with Node.js, designed to 
 ## Features
 
 - WhatsApp Web client integration using whatsapp-web.js
-- Session persistence with MongoDB
+- Session persistence with MongoDB via RemoteAuth
 - REST API for sending and receiving messages
 - QR code generation for authentication
-- Docker support for easy deployment
-- Comprehensive error handling and logging
-- Secure configuration management
+- Docker support for easy deployment with multi-stage builds
+- Comprehensive error handling and message queue system
+- Secure configuration management with environment variables
+- Graceful shutdown handling
+- Health check endpoints for container orchestration
 
 ## Prerequisites
 
 - Node.js 18+
 - MongoDB database
-- Docker (for containerized deployment)
+- Docker and Docker Compose (for containerized deployment)
 
 ## Installation
 
@@ -50,6 +52,11 @@ A production-ready WhatsApp Web gateway service built with Node.js, designed to 
 1. Build and run using Docker Compose:
 
    ```bash
+   # Standard build and run
+   docker-compose up -d
+   
+   # Force a clean build with no cache
+   docker-compose build --no-cache
    docker-compose up -d
    ```
 2. View logs:
@@ -62,6 +69,13 @@ A production-ready WhatsApp Web gateway service built with Node.js, designed to 
    ```bash
    docker-compose down
    ```
+
+4. The Docker setup includes:
+   - Multi-stage builds for smaller image size
+   - Chromium browser pre-installed for WhatsApp Web
+   - Non-root user for improved security
+   - Health checks for container orchestration
+   - Volume mounts for logs and QR code persistence
 
 ## API Endpoints
 
@@ -107,19 +121,29 @@ All configuration is managed through environment variables:
 | RETRY_DELAY               | Delay between retry attempts (ms)          | 5000               |
 | QUEUE_CONCURRENCY         | Number of concurrent messages to process   | 1                  |
 
+For Docker deployments, the container automatically installs and configures Chromium, so you don't need to set `PUPPETEER_EXECUTABLE_PATH` manually.
+
 ## Architecture
 
-- **services/whatsappService.js** - Core WhatsApp client functionality
-- **routes/** - API route handlers
-- **config/** - Configuration management
-- **utils/** - Utility functions, logging, and error handling
+- **services/whatsappService.js** - Core WhatsApp client functionality with RemoteAuth integration
+- **routes/** - API route handlers for WhatsApp operations and status endpoints
+- **config/** - Configuration management with centralized environment variable handling
+- **utils/** 
+  - **logger.js** - Structured logging with proper log levels
+  - **errorHandler.js** - Centralized error handling with custom error classes
+  - **messageQueue.js** - Robust queue system for reliable message processing with retries
 
 ## Security Notes
 
-- This application uses secure configurations for Docker
-- Environment variables for sensitive information
-- Session data stored in MongoDB with encryption
-- Non-root user in Docker container
+- This application implements various security best practices:
+  - Multi-stage Docker builds to minimize attack surface
+  - Non-root user in Docker container (runs as `whatsapp` user)
+  - Environment variables for sensitive information
+  - Session data stored in MongoDB with RemoteAuth encryption
+  - Security HTTP headers for XSS protection
+  - Proper error handling to prevent information leakage
+  - Graceful shutdown procedures for data integrity
+  - Health checks for container orchestration systems
 
 ## License
 
