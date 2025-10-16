@@ -49,8 +49,11 @@ COPY --from=build /app/node_modules ./node_modules
 # Copy application code
 COPY . .
 
-# Create necessary directories
-RUN mkdir -p /app/logs
+# Create necessary directories and handle qr.html permissions
+RUN mkdir -p /app/logs && \
+    touch /app/qr.html && \
+    chmod 666 /app/qr.html && \
+    chown -R whatsapp:whatsapp /app/logs /app/qr.html
 
 # Change to non-root user
 USER whatsapp

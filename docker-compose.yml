@@ -13,7 +13,8 @@ services:
       - "3000:3000"
     volumes:
       - ./logs:/app/logs
-      - ./qr.html:/app/qr.html
+      # Mount qr.html with consistent permissions (the container's file takes precedence)
+      - ./qr.html:/app/qr.html:delegated
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
       interval: 30s

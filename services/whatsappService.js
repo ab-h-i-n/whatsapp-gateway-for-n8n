@@ -8,6 +8,17 @@ const logger = require('../utils/logger');
 const { AppError } = require('../utils/errorHandler');
 const messageQueue = require('../utils/messageQueue');
 
+// Utility function to safely write to QR HTML file
+const safeWriteQrHtml = (content) => {
+  try {
+    fs.writeFileSync('qr.html', content);
+    logger.debug('Successfully updated QR file');
+  } catch (error) {
+    logger.error(`Failed to write to qr.html: ${error.message}`);
+    // Continue execution - this is not a critical failure
+  }
+};
+
 class WhatsAppService {
   constructor() {
     this.client = null;
@@ -123,7 +134,7 @@ class WhatsAppService {
     // Disconnection event
     this.client.on('disconnected', (reason) => {
       logger.warn(`WhatsApp client was logged out: ${reason}`);
-      fs.writeFileSync('qr.html', 'Client was logged out');
+      safeWriteQrHtml('Client was logged out');
       
       // Reset initialization state
       this.isInitialized = false;
@@ -284,7 +295,7 @@ class WhatsAppService {
           </body>
         </html>
       `;
-      fs.writeFileSync('qr.html', html);
+      safeWriteQrHtml(html);
       
       // Reset state but keep the client instance
       this.isInitialized = false;
@@ -336,7 +347,7 @@ class WhatsAppService {
         </body>
       </html>
     `;
-    fs.writeFileSync('qr.html', html);
+    safeWriteQrHtml(html);
   }
 
   _showLoadingHtml() {
@@ -361,7 +372,7 @@ class WhatsAppService {
         </body>
       </html>
     `;
-    fs.writeFileSync('qr.html', html);
+    safeWriteQrHtml(html);
   }
 
   _createQr(qr) {
@@ -397,7 +408,7 @@ class WhatsAppService {
           </body>
         </html>
       `;
-      fs.writeFileSync('qr.html', html);
+      safeWriteQrHtml(html);
     });
   }
 }
