@@ -33,8 +33,9 @@ class MessageQueue {
         id: messageId,
         sendFunction,
         options,
-        resolve,
-        reject,
+        // keep original promise handlers on the message object so they can be resolved/rejected later
+        _resolve: resolve,
+        _reject: reject,
         attempts: 0,
         addedAt: Date.now()
       });
@@ -69,18 +70,25 @@ class MessageQueue {
         // Process each message in the batch
         const results = await Promise.allSettled(batch.map(msg => this.processMessage(msg)));
         
-        // Log results
+        // Log results and resolve/reject original promises only on final outcome
         results.forEach((result, i) => {
           const msg = batch[i];
-          
+
           if (result.status === 'fulfilled') {
             logger.debug(`Message ${msg.id} processed successfully`);
-            msg.resolve(result.value);
+            // Resolve the original promise attached to this message
+            if (msg._resolve) msg._resolve(result.value);
             this.messagesSent++;
           } else {
             logger.error(`Message ${msg.id} failed: ${result.reason}`);
-            msg.reject(result.reason);
-            this.messagesFailed++;
+            // If this was a final failure (processedMessage will have handled retries), reject original promise
+            if (msg._finalFailed) {
+              if (msg._reject) msg._reject(result.reason);
+              this.messagesFailed++;
+            } else {
+              // If it's being retried, just log it; final resolution will happen later
+              logger.info(`Message ${msg.id} scheduled for retry`);
+            }
           }
         });
         
@@ -119,16 +127,19 @@ class MessageQueue {
       // Retry if under max attempts
       if (msg.attempts < config.queue.maxRetries) {
         logger.warn(`Message ${msg.id} failed, retrying (${msg.attempts}/${config.queue.maxRetries}): ${error.message}`);
-        
+
         // Wait before retrying
         await new Promise(resolve => setTimeout(resolve, config.queue.retryDelay));
-        
-        // Re-add to the front of the queue
+
+        // Re-add to the front of the queue preserving handlers
         this.queue.unshift(msg);
-        return Promise.reject(new AppError(`Message will be retried (${msg.attempts}/${config.queue.maxRetries})`, 500));
+
+        // Return a special rejection value so Promise.allSettled will treat this as non-final
+        return Promise.reject(new Error(`Message will be retried (${msg.attempts}/${config.queue.maxRetries})`));
       }
-      
-      // Max retries exceeded
+
+      // Max retries exceeded: mark message as final failed so caller is rejected in results handling
+      msg._finalFailed = true;
       return Promise.reject(new AppError(`Failed to send message after ${msg.attempts} attempts: ${error.message}`, 500));
     }
   }

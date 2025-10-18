@@ -212,15 +212,49 @@ class WhatsAppService {
       async (opts) => {
         try {
           logger.debug(`Sending message to ${opts.to}`);
+          // Ensure the client is still initialized at send time
+          if (!this.isInitialized || !this.client) {
+            throw new Error('WhatsApp client not initialized at send time');
+          }
+
+          // Check runtime client state (CONNECTED is expected)
+          try {
+            const state = await this.client.getState();
+            logger.debug(`Client state before send: ${state}`);
+            if (typeof state === 'string' && state.toLowerCase() !== 'connected') {
+              throw new Error(`Client not connected (state: ${state})`);
+            }
+          } catch (stateErr) {
+            // If getState fails or returns non-connected state, throw to trigger retry
+            logger.warn(`Unable to verify client state before send: ${stateErr.message}`);
+            throw new Error(`Client not ready for sending: ${stateErr.message}`);
+          }
+
           const response = await this.client.sendMessage(opts.to, opts.message);
-          logger.debug('Message sent successfully');
+
+          // Log useful fields from response to help debugging delivery issues
+          try {
+            const info = {
+              id: response?.id?._serialized,
+              from: response?.from || response?.to || null,
+              fromMe: response?.fromMe || false,
+              timestamp: response?.timestamp || null,
+              ack: response?.ack ?? null,
+            };
+            logger.info(`sendMessage response: ${JSON.stringify(info)}`);
+          } catch (logErr) {
+            logger.debug(`Could not stringify send response: ${logErr.message}`);
+          }
+
+          logger.debug('Message sent successfully (sendMessage returned)');
           return { 
             success: true, 
-            messageId: response.id._serialized,
+            messageId: response.id?._serialized,
             timestamp: response.timestamp
           };
         } catch (error) {
           logger.error(`Error sending message: ${error.message}`);
+          // Throw error so queue can decide to retry
           throw new AppError(`Failed to send message: ${error.message}`, 500);
         }
       },
