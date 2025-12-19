@@ -64,6 +64,10 @@ class WhatsAppService {
           store: store,
           backupSyncIntervalMs: config.whatsapp.backupSyncIntervalMs,
         }),
+        webVersionCache: {
+          type: 'remote',
+          remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html',
+        },
       });
 
       // Set up event handlers
@@ -109,9 +113,9 @@ class WhatsAppService {
         const version = await this.client.getWWebVersion();
         logger.info(`WhatsApp Web version: ${version}`);
         this._showReadyHtml();
-        
+
         await this.sendMessage(
-          config.notifications.adminNumber, 
+          config.notifications.adminNumber,
           'WhatsApp client is ready!'
         );
       } catch (error) {
@@ -135,11 +139,11 @@ class WhatsAppService {
     this.client.on('disconnected', (reason) => {
       logger.warn(`WhatsApp client was logged out: ${reason}`);
       safeWriteQrHtml('Client was logged out');
-      
+
       // Reset initialization state
       this.isInitialized = false;
       this.initializationPromise = null;
-      
+
       // Don't exit the process, allow reconnection
       // Instead, emit an event that can be handled by the server
       if (this.client) {
@@ -151,7 +155,7 @@ class WhatsAppService {
     this.client.on('message', async (msg) => {
       try {
         logger.debug(`Message received from ${msg.from}: ${msg.body.substring(0, 20)}${msg.body.length > 20 ? '...' : ''}`);
-        
+
         // Send to webhook
         await fetch(config.notifications.webhookUrl, {
           method: 'POST',
@@ -178,13 +182,13 @@ class WhatsAppService {
       setTimeout(async () => {
         try {
           logger.info(`Client lifetime reached (${config.whatsapp.clientLifetime}ms). Destroying client...`);
-          
+
           if (this.isInitialized && this.client) {
             await this.sendMessage(config.notifications.adminNumber, 'Client destroyed due to lifetime limit');
             await this.client.destroy();
             logger.info('Client successfully destroyed');
           }
-          
+
           // Reset initialization state
           this.isInitialized = false;
           this.initializationPromise = null;
@@ -247,8 +251,8 @@ class WhatsAppService {
           }
 
           logger.debug('Message sent successfully (sendMessage returned)');
-          return { 
-            success: true, 
+          return {
+            success: true,
             messageId: response.id?._serialized,
             timestamp: response.timestamp
           };
@@ -269,7 +273,7 @@ class WhatsAppService {
   getQueueStats() {
     return messageQueue.getStats();
   }
-  
+
   /**
    * Clear the message queue
    * @returns {number} Number of messages cleared
@@ -282,7 +286,7 @@ class WhatsAppService {
     if (!this.client) {
       return { status: 'not_initialized' };
     }
-    
+
     try {
       const state = await this.client.getState();
       return { status: state };
@@ -291,7 +295,7 @@ class WhatsAppService {
       return { status: 'error', error: error.message };
     }
   }
-  
+
   /**
    * Logout from the WhatsApp session
    * This keeps the client instance but logs out the current user
@@ -302,11 +306,11 @@ class WhatsAppService {
       logger.warn('Cannot logout: WhatsApp client is not initialized');
       return false;
     }
-    
+
     try {
       logger.info('Logging out of WhatsApp session');
       await this.client.logout();
-      
+
       // Update the QR HTML to show logged out state
       const html = `
         <html>
@@ -330,11 +334,11 @@ class WhatsAppService {
         </html>
       `;
       safeWriteQrHtml(html);
-      
+
       // Reset state but keep the client instance
       this.isInitialized = false;
       this.initializationPromise = null;
-      
+
       logger.info('Successfully logged out of WhatsApp');
       return true;
     } catch (error) {
@@ -348,7 +352,7 @@ class WhatsAppService {
       try {
         await this.client.destroy();
         logger.info('WhatsApp client destroyed');
-        
+
         this.isInitialized = false;
         this.initializationPromise = null;
         return true;
